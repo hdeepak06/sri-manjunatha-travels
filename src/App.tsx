@@ -3,8 +3,8 @@ import Lenis from "lenis";
 import { motion } from "framer-motion";
 import "./index.css";
 
-const displayPhone = "+91 80883 81775";
-const cleanPhone = "918088381775";
+const displayPhone = "+91 98457 99414";
+const cleanPhone = "919845799414";
 
 const images = {
   hero: "/assets/hampi-sunset.png",
@@ -1173,7 +1173,7 @@ export default function App() {
                   className="contact-channel-value"
                   style={{ textAlign: "left" }}
                 >
-                  80883 81775
+                  {displayPhone}
                 </button>
               </div>
 
