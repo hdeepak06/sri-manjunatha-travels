@@ -267,18 +267,14 @@ export const HampiPhotoMap: React.FC<HampiPhotoMapProps> = ({ onBookPlace }) => 
 
     mapInstanceRef.current = map;
 
-    // Clean, light & warm CartoDB Voyager tiles (Tourist Travel style)
-    const voyagerTiles = L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-      {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> &copy; <a href="https://carto.com/" target="_blank">CARTO</a>',
-        subdomains: "abcd",
-        maxZoom: 19,
-        minZoom: 10,
-      }
-    );
-    voyagerTiles.addTo(map);
+    // Clean, 100% free OpenStreetMap standard tiles (Zero API key required)
+    const osmTiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors',
+      maxZoom: 19,
+      minZoom: 10,
+    });
+    osmTiles.addTo(map);
 
     // Subtle dashed scenic itinerary route line
     const routeLine = L.polyline(ITINERARY_ROUTE_COORDS, {
