@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Lenis from "lenis";
+import { HampiPhotoMap } from "./components/HampiPhotoMap";
 import "./index.css";
 
 const displayPhone = "+91 98457 99414";
@@ -18,10 +19,16 @@ const images = {
   office: "/assets/office.png",
   interior: "/assets/bus-interior.png",
   virupaksha: "/assets/virupaksha-temple.jpg",
+  hampiBazaar: "/assets/hampi-bazaar.jpg",
+  vittalaTemple: "/assets/vittala-temple.jpg",
   stoneChariot: "/assets/stone-chariot.jpg",
   lotusMahal: "/assets/lotus-mahal.jpg",
   elephantStables: "/assets/elephant-stables.jpg",
+  queensBath: "/assets/queens-bath.jpg",
+  ugraNarasimha: "/assets/ugra-narasimha.jpg",
   matangaHill: "/assets/matanga-hill.jpg",
+  hemakutaHill: "/assets/hemakuta-hill.jpg",
+  anjanadriHill: "/assets/anjanadri-hill.jpg",
   tungabhadra: "/assets/tungabhadra-dam.jpg",
 };
 
@@ -60,7 +67,7 @@ const attractionsData: Attraction[] = [
     id: "vijaya-vittala",
     name: "Vijaya Vittala Temple",
     category: "HERITAGE & TEMPLES",
-    image: images.stoneChariot,
+    image: images.vittalaTemple,
     description:
       "The pinnacle of Vijayanagara craftsmanship, famous for its world-renowned musical pillars, sculpted halls, and stone artistry.",
     distance: "~15 km from Hosapete Office (approx 35 mins)",
@@ -80,7 +87,7 @@ const attractionsData: Attraction[] = [
     id: "ugra-narasimha",
     name: "Ugra Narasimha",
     category: "HERITAGE & TEMPLES",
-    image: images.virupaksha,
+    image: images.ugraNarasimha,
     description:
       "Largest monolithic sculpture in Hampi (6.7 meters tall), carved in 1528 AD, depicting Lord Narasimha seated under the serpent Adisesha.",
     distance: "~12 km from Hosapete Office (approx 25 mins)",
@@ -112,7 +119,7 @@ const attractionsData: Attraction[] = [
     id: "queens-bath",
     name: "Queen's Bath",
     category: "ROYAL HAMPI",
-    image: images.lotusMahal,
+    image: images.queensBath,
     description:
       "Elaborate royal bath with ornate arched corridors, overhanging balconies, and a central pool fed by ancient aqueducts.",
     distance: "~11 km from Hosapete Office (approx 25 mins)",
@@ -131,10 +138,20 @@ const attractionsData: Attraction[] = [
     mapQuery: "Matanga+Hill+Hampi+Karnataka",
   },
   {
+    id: "hemakuta-hill",
+    name: "Hemakuta Hill",
+    category: "VIEWS & SUNSET",
+    image: images.hemakutaHill,
+    description:
+      "A gently sloping granite expanse dotted with pre-Vijayanagara triple-chambered shrines, celebrated for golden sunset vistas.",
+    distance: "~12 km from Hosapete Office (approx 25 mins)",
+    mapQuery: "Hemakuta+Hill+Hampi+Karnataka",
+  },
+  {
     id: "anjanadri-hill",
     name: "Anjanadri Hill",
     category: "VIEWS & SUNSET",
-    image: images.hero,
+    image: images.anjanadriHill,
     description:
       "Revered across the Tungabhadra river as Kishkindha (birthplace of Lord Hanuman). Reached by climbing 575 scenic stone steps.",
     distance: "~22 km from Hosapete Office (approx 45 mins)",
@@ -142,13 +159,13 @@ const attractionsData: Attraction[] = [
   },
   {
     id: "hampi-bazaar",
-    name: "Hampi Bazaar & Hemakuta",
+    name: "Hampi Bazaar",
     category: "VIEWS & SUNSET",
-    image: images.hero,
+    image: images.hampiBazaar,
     description:
-      "Kilometer-long ancient market street flanked by stone pavilions, leading to Hemakuta Hill's cluster of pre-Vijayanagara sunset shrines.",
-    distance: "~12 km from Hosapete Office (approx 25 mins)",
-    mapQuery: "Hampi+Bazaar+Hemakuta+Hill",
+      "Kilometer-long ancient market street flanked by stone pavilions leading to Virupaksha and ancient trading markets.",
+    distance: "~12.5 km from Hosapete Office (approx 25 mins)",
+    mapQuery: "Hampi+Bazaar+Karnataka",
   },
 
   // 4. Family & Nearby Experiences
@@ -162,16 +179,6 @@ const attractionsData: Attraction[] = [
     distance: "~6 km from Hosapete Office (approx 15 mins)",
     mapQuery: "Tungabhadra+Dam+Hosapete+Karnataka",
   },
-  {
-    id: "daroji-bear",
-    name: "Daroji Sloth Bear Sanctuary",
-    category: "FAMILY & NEARBY",
-    image: images.tungabhadra,
-    description:
-      "Asia's first protected sloth bear reserve. Visitors observe wild sloth bears, leopards, and birds in their natural bouldered habitat.",
-    distance: "~18 km from Hosapete Office (approx 35 mins)",
-    mapQuery: "Daroji+Sloth+Bear+Sanctuary+Karnataka",
-  },
 ];
 
 /* ==========================================================================
@@ -181,17 +188,24 @@ const attractionsData: Attraction[] = [
 interface BookingFormProps {
   selectedVehicle: string;
   onVehicleChange: (vehicle: string) => void;
+  bookingDestination?: string;
 }
 
-function BookingForm({ selectedVehicle, onVehicleChange }: BookingFormProps) {
+function BookingForm({ selectedVehicle, onVehicleChange, bookingDestination }: BookingFormProps) {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [from, setFrom] = useState("Hosapete");
-  const [to, setTo] = useState("Hampi Sightseeing");
+  const [to, setTo] = useState(bookingDestination || "Hampi Sightseeing");
+  const [prevDestination, setPrevDestination] = useState(bookingDestination);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [passengers, setPassengers] = useState("1");
   const [errorMsg, setErrorMsg] = useState("");
+
+  if (bookingDestination !== prevDestination) {
+    setPrevDestination(bookingDestination);
+    setTo(bookingDestination || "Hampi Sightseeing");
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -383,6 +397,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState("Innova");
+  const [bookingDestination, setBookingDestination] = useState("Hampi Sightseeing");
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -434,6 +449,12 @@ export default function App() {
 
   const handleSelectVehicle = (vName: string) => {
     setSelectedVehicle(vName);
+    goTo("booking");
+  };
+
+  const handleBookPlace = (placeName: string) => {
+    setSelectedVehicle("Innova");
+    setBookingDestination(placeName);
     goTo("booking");
   };
 
@@ -813,18 +834,20 @@ export default function App() {
       </section>
 
       {/* ====================================================================
-          EXPLORE HAMPI FROM HERE (12 ATTRACTIONS ORGANIZED BY EXPERIENCE)
+          EXPLORE HAMPI FROM HERE: INTERACTIVE PHOTO MAP & MONUMENT GUIDES
           ==================================================================== */}
-      <section className="destinations-section" id="destinations">
+      <HampiPhotoMap onBookPlace={handleBookPlace} />
+
+      <section className="destinations-section" id="landmark-guides">
         <div className="container">
           <div className="section-header text-center">
-            <span className="section-tag">Explore Hampi From Here</span>
+            <span className="section-tag">Landmark Guides</span>
             <h2 className="section-title">
-              Places to Visit <em>Near Hampi</em>
+              Explore the 12 Monuments <em>in Detail</em>
             </h2>
             <p className="section-subtitle">
-              Discover the history, architecture and landscapes that make Hampi unforgettable.
-              Our chauffeurs know every road, shortcut, and monument opening time.
+              Comprehensive guide to Hampi's timeless stone temples, royal enclosures, and sunset viewpoints.
+              Every journey is chauffeured by our courteous, experienced local drivers.
             </p>
           </div>
 
@@ -879,7 +902,7 @@ export default function App() {
                   </div>
                   <div className="destination-actions">
                     <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${place.mapQuery}`}
+                      href={`https://www.google.com/maps/dir/?api=1&origin=100+Bed+Hospital+Road+Hosapete+Karnataka+583201&destination=${encodeURIComponent(place.name + " Hampi")}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="directions-link-btn"
@@ -890,10 +913,7 @@ export default function App() {
                     <button
                       className="btn-secondary"
                       style={{ padding: "8px 16px", fontSize: "11px" }}
-                      onClick={() => {
-                        setSelectedVehicle("Innova");
-                        goTo("booking");
-                      }}
+                      onClick={() => handleBookPlace(place.name)}
                     >
                       Book Ride
                     </button>
@@ -1299,6 +1319,7 @@ export default function App() {
             <BookingForm
               selectedVehicle={selectedVehicle}
               onVehicleChange={setSelectedVehicle}
+              bookingDestination={bookingDestination}
             />
           </div>
         </div>
