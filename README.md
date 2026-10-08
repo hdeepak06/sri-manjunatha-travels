@@ -1,75 +1,45 @@
-# React + TypeScript + Vite
+# Sri Manjunatha Tours & Travels
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Pure HTML5, CSS3, and JavaScript static website for **Sri Manjunatha Tours & Travels** (Hosapete & Hampi, Karnataka).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📁 Project Structure
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+sri-manjunatha-travels/
+│
+├── index.html        # Main HTML5 webpage with semantic sections & layout
+├── style.css         # Complete vanilla CSS (design system, layout, animations)
+├── script.js         # Vanilla JavaScript (map, navigation, filters, booking)
+└── assets/
+    ├── images/       # All 27 optimized destination, fleet, and background images
+    └── icons/        # SVG icons & favicon
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 How to Run the Website
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Method 1: Double-Click (Direct in Browser)
+Double-click `index.html` to open it immediately in any browser (Chrome, Edge, Firefox, Safari).
 
+### Method 2: VS Code Live Server
+Right-click `index.html` in VS Code and choose **Open with Live Server**.
+
+### Method 3: Any Static Server (Optional)
+```bash
+python -m http.server 3000
 ```
+
+---
+
+## ✨ Features
+
+- **Zero Framework Overhead**: Runs natively in any browser with no `npm`, Node.js, Vite, or React dependencies.
+- **Interactive Leaflet Photo Map**: 12 Hampi landmarks with custom markers, driving directions, and tour itinerary path.
+- **Instant WhatsApp Booking**: Automated booking calculator & WhatsApp message generator.
+- **Fleet Showcase**: Innova Crysta, Tempo Traveller, Executive Sedans, and Luxury Coaches.
+- **12 Landmark Detailed Guides**: Filterable by Heritage & Temples, Royal Hampi, Views & Sunset, and Family Experiences.
+- **Suggested Itinerary Timeline**: Morning-to-evening day trip guide.
+- **100% Responsive Design**: Fluid on desktop, tablet, and mobile devices.

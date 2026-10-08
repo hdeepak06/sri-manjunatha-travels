@@ -1,23 +1,1120 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Sri Manjunatha Tours & Travels — Premium travel, taxi & tour bus services in Hosapete and Hampi, Karnataka. Explore ancient Hampi with luxury Travellers, Innovas, Sedans, and Buses."
-    />
-    <title>Sri Manjunatha Tours & Travels | Hosapete • Hampi</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sri Manjunatha Tours & Travels — Premium travel, taxi & tour bus services in Hosapete and Hampi, Karnataka. Explore ancient Hampi with luxury Travellers, Innovas, Sedans, and Buses.">
+  <title>Sri Manjunatha Tours & Travels | Hosapete • Hampi</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Instrument+Serif:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="site-wrapper">
+
+    <!-- ====================================================================
+         NAVBAR (LIGHT, TRANSLUCENT & ACCESSIBLE)
+         ==================================================================== -->
+    <header class="site-navbar" id="site-navbar">
+      <a href="#home" class="navbar-brand" aria-label="Sri Manjunatha Travels home">
+        <span class="navbar-brand-main">SRI MANJUNATHA</span>
+        <span class="navbar-brand-sub">TOURS & TRAVELS</span>
+      </a>
+
+      <nav class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#vehicles">Vehicles</a>
+        <a href="#services">Services</a>
+        <a href="#destinations">Explore Hampi</a>
+        <a href="#itinerary">Itinerary</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="navbar-actions">
+        <a href="tel:919845799414" class="nav-phone-link" aria-label="Call Sri Manjunatha Travels">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>+91 98457 99414</span>
+        </a>
+
+        <a href="#booking" class="btn-primary nav-book-btn">
+          Book Now
+        </a>
+      </div>
+
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <!-- MOBILE DRAWER -->
+    <div class="mobile-menu-drawer" id="mobile-menu-drawer">
+      <nav class="mobile-nav-links">
+        <a href="#home" class="mobile-nav-link">Home</a>
+        <a href="#vehicles" class="mobile-nav-link">Vehicles</a>
+        <a href="#services" class="mobile-nav-link">Services</a>
+        <a href="#destinations" class="mobile-nav-link">Explore Hampi</a>
+        <a href="#itinerary" class="mobile-nav-link">Suggested Itinerary</a>
+        <a href="#about" class="mobile-nav-link">Why Choose Us</a>
+        <a href="#contact" class="mobile-nav-link">Contact Us</a>
+      </nav>
+
+      <div class="mobile-drawer-footer">
+        <a href="tel:919845799414" class="btn-primary">
+          Call +91 98457 99414
+        </a>
+        <button type="button" id="mobile-whatsapp-btn" class="btn-secondary">
+          WhatsApp Us
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         HERO SECTION (SUNLIT, VISIBLE IMAGE)
+         ==================================================================== -->
+    <section class="hero-section" id="home">
+      <div class="hero-media-wrapper">
+        <img
+          src="assets/images/hampi-sunset.png"
+          alt="Majestic golden sunlit ruins and temples of Hampi Karnataka"
+          class="hero-image"
+        >
+        <div class="hero-scrim-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <span class="hero-tag">
+          ✦ HOSAPETE • HAMPI • KARNATAKA ✦
+        </span>
+
+        <h1 class="hero-main-heading">
+          Explore Hampi with
+          <br>
+          <em>Sri Manjunatha Travels</em>
+        </h1>
+
+        <p class="hero-subtext">
+          Comfortable journeys, reliable travel and unforgettable experiences
+          across Hampi and Karnataka.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#booking" class="btn-primary">
+            <span>Book Your Journey</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+
+          <a href="#destinations" class="btn-outline-light">
+            <span>Explore Hampi</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TRUST STATS BAR
+         ==================================================================== -->
+    <section class="trust-stats-bar">
+      <div class="stats-flex-container">
+        <div class="stat-box">
+          <div class="stat-icon-wrap">🏛️</div>
+          <div class="stat-text">
+            <strong>15+ Years Mastery</strong>
+            <span>Local Hampi &amp; Hosapete Experts</span>
+          </div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon-wrap">⏱️</div>
+          <div class="stat-text">
+            <strong>100% On-Time Pickups</strong>
+            <span>Station, Resort &amp; Airport Drops</span>
+          </div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon-wrap">✨</div>
+          <div class="stat-text">
+            <strong>Pristine AC Fleet</strong>
+            <span>Sanitized, Pushback Comfort</span>
+          </div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon-wrap">🤝</div>
+          <div class="stat-text">
+            <strong>Transparent Rates</strong>
+            <span>Honest Pricing, Zero Hidden Fees</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TRAVEL SERVICES (LIGHT & FRIENDLY)
+         ==================================================================== -->
+    <section class="services-section" id="services">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Travel Services</span>
+          <h2 class="section-title">
+            Comfortable Travel for <em>Every Journey</em>
+          </h2>
+          <p class="section-subtitle">
+            From swift local taxi transfers to multi-day temple circuits across
+            Karnataka, our fleet is ready to serve you 24/7.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon-bubble">🚗</div>
+            <h3>Local Travel</h3>
+            <p>
+              Swift, comfortable road travel across Hosapete town, shopping
+              markets, Tungabhadra viewpoints, and local business hubs.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon-bubble">🏨</div>
+            <h3>Hotel Transfers</h3>
+            <p>
+              Punctual door-to-door pickups and drops connecting Hosapete
+              Railway Station with premier Hampi resorts and heritage guest houses.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon-bubble">✈️</div>
+            <h3>Airport Transfers</h3>
+            <p>
+              Reliable airport connectivity to Jindal Vijayanagar Airport (VDY),
+              Hubli Airport, and Kempegowda International Airport (BLR).
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon-bubble">🚌</div>
+            <h3>Outstation Trips</h3>
+            <p>
+              Comfortable long-distance touring to Badami, Aihole, Pattadakal,
+              Bijapur, Gokarna beaches, and interstate holiday circuits.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon-bubble">🏛️</div>
+            <h3>Hampi Sightseeing</h3>
+            <p>
+              Curated full-day and multi-day heritage temple circuits with
+              patient chauffeurs who wait while you explore ancient monuments.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon-bubble">👨‍👩‍👧</div>
+            <h3>Family Travel</h3>
+            <p>
+              Spacious, high-roof, fully air-conditioned vehicles with pushback
+              seating to keep kids and elders relaxed throughout the day.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         OUR VEHICLES (BRIGHT SHOWCASE)
+         ==================================================================== -->
+    <section class="vehicles-section" id="vehicles">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Our Fleet</span>
+          <h2 class="section-title">
+            Choose Your <em>Way to Travel</em>
+          </h2>
+          <p class="section-subtitle">
+            Every vehicle in our Hosapete depot is clean, well-maintained,
+            air-conditioned, and chauffeured by courteous local drivers.
+          </p>
+        </div>
+
+        <div class="vehicles-grid">
+          <!-- INNOVA -->
+          <div class="vehicle-card">
+            <div class="vehicle-photo-box">
+              <span class="vehicle-tag-badge">Premium Travel</span>
+              <span class="vehicle-capacity-badge">6–7 Passengers</span>
+              <img src="assets/images/premium-innova.png" alt="Toyota Innova Crysta luxury tour cab" loading="lazy">
+            </div>
+            <div class="vehicle-body">
+              <h3>Toyota Innova Crysta</h3>
+              <span class="vehicle-model-line">Premium Private Travel</span>
+              <p>
+                The gold standard for family sightseeing and executive transfers.
+                Dual air-conditioning and plush captain seats provide absolute comfort on dusty temple roads.
+              </p>
+              <div class="vehicle-amenities-row">
+                <span class="amenity-chip">Dual Climate AC</span>
+                <span class="amenity-chip">Pushback Captain Seats</span>
+                <span class="amenity-chip">Large Boot Space</span>
+                <span class="amenity-chip">Chauffeur Driven</span>
+              </div>
+              <div class="vehicle-footer-cta">
+                <button type="button" class="btn-primary select-vehicle-btn" data-vehicle="Innova">
+                  Book This Vehicle →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRAVELLER -->
+          <div class="vehicle-card">
+            <div class="vehicle-photo-box">
+              <span class="vehicle-tag-badge">Group Travel</span>
+              <span class="vehicle-capacity-badge">12–20 Passengers</span>
+              <img src="assets/images/decorated-traveller.png" alt="Force Tempo Traveller luxury group vehicle" loading="lazy">
+            </div>
+            <div class="vehicle-body">
+              <h3>Force Tempo Traveller</h3>
+              <span class="vehicle-model-line">Group &amp; Pilgrimage Tours</span>
+              <p>
+                High-roof walk-in clearance with individual pushback recliner seats.
+                Ideal for extended families, pilgrim groups to Virupaksha, and educational tours.
+              </p>
+              <div class="vehicle-amenities-row">
+                <span class="amenity-chip">12–20 Pushback Recliners</span>
+                <span class="amenity-chip">High Roof Walk-In</span>
+                <span class="amenity-chip">Powerful Cabin AC</span>
+                <span class="amenity-chip">Top Luggage Carrier</span>
+              </div>
+              <div class="vehicle-footer-cta">
+                <button type="button" class="btn-primary select-vehicle-btn" data-vehicle="Traveller">
+                  Book This Vehicle →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEDAN -->
+          <div class="vehicle-card">
+            <div class="vehicle-photo-box">
+              <span class="vehicle-tag-badge">Car Travel</span>
+              <span class="vehicle-capacity-badge">4 Passengers</span>
+              <img src="assets/images/sedan.png" alt="Executive sedan for swift road travel" loading="lazy">
+            </div>
+            <div class="vehicle-body">
+              <h3>Executive Sedans</h3>
+              <span class="vehicle-model-line">Comfortable Taxi Travel</span>
+              <p>
+                Agile, smooth, and fuel-efficient sedans for couples, solo travelers,
+                and swift hops between Hosapete Junction, Tungabhadra Dam, and heritage hotels.
+              </p>
+              <div class="vehicle-amenities-row">
+                <span class="amenity-chip">Chilled AC</span>
+                <span class="amenity-chip">Pristine Interiors</span>
+                <span class="amenity-chip">Doorstep Pickup</span>
+                <span class="amenity-chip">Punctual Drivers</span>
+              </div>
+              <div class="vehicle-footer-cta">
+                <button type="button" class="btn-primary select-vehicle-btn" data-vehicle="Sedan">
+                  Book This Vehicle →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BUS -->
+          <div class="vehicle-card">
+            <div class="vehicle-photo-box">
+              <span class="vehicle-tag-badge">Large Groups</span>
+              <span class="vehicle-capacity-badge">30–50 Passengers</span>
+              <img src="assets/images/large-bus.png" alt="Luxury tour coach for grand delegations" loading="lazy">
+            </div>
+            <div class="vehicle-body">
+              <h3>Luxury Tour Coaches</h3>
+              <span class="vehicle-model-line">Events, Weddings &amp; Groups</span>
+              <p>
+                Air-suspension touring buses designed for wedding parties,
+                college excursions, and large pilgrim groups exploring Karnataka's historic circuit.
+              </p>
+              <div class="vehicle-amenities-row">
+                <span class="amenity-chip">Air Suspension Comfort</span>
+                <span class="amenity-chip">Massive Underbody Boot</span>
+                <span class="amenity-chip">Experienced Highway Captains</span>
+                <span class="amenity-chip">Interstate Permits</span>
+              </div>
+              <div class="vehicle-footer-cta">
+                <button type="button" class="btn-primary select-vehicle-btn" data-vehicle="Bus">
+                  Book This Vehicle →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         EXPLORE HAMPI FROM HERE: INTERACTIVE PHOTO MAP
+         ==================================================================== -->
+    <section class="hampi-interactive-map-section" id="destinations">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-header text-center">
+          <div class="map-badge-tag-wrap">
+            <span class="section-tag">Interactive Tourist Map</span>
+            <span class="places-count-pill">12 Places to Explore</span>
+          </div>
+          <h2 class="section-title">
+            Explore Hampi <em>From Here</em>
+          </h2>
+          <p class="section-subtitle">
+            From ancient temples to breathtaking viewpoints, discover the places worth visiting around Hampi.
+            Tap any photo marker or destination card below to explore and get instant driving directions.
+          </p>
+        </div>
+
+        <!-- Experience Filter Tabs -->
+        <div class="map-filter-nav">
+          <button type="button" class="map-tab-btn active" data-category="ALL">
+            All 12 Highlights
+          </button>
+          <button type="button" class="map-tab-btn" data-category="Heritage &amp; Temples">
+            Heritage &amp; Temples (5)
+          </button>
+          <button type="button" class="map-tab-btn" data-category="Royal Hampi">
+            Royal Hampi (3)
+          </button>
+          <button type="button" class="map-tab-btn" data-category="Views &amp; Sunset">
+            Views &amp; Sunset (3)
+          </button>
+          <button type="button" class="map-tab-btn" data-category="Family &amp; Experiences">
+            Family &amp; Nearby (1)
+          </button>
+        </div>
+
+        <!-- Map Card Shell -->
+        <div class="photo-map-card-wrapper">
+          <!-- Top Info Banner -->
+          <div class="map-top-legend-bar">
+            <div class="legend-item origin">
+              <span class="legend-indicator origin-pulse"></span>
+              <strong>Starting Point:</strong>
+              <span>Sri Manjunatha Travels (Hosapete HQ)</span>
+            </div>
+            <div class="legend-item route-note">
+              <span class="legend-dashed-line"></span>
+              <span>Dotted Line: Suggested Hampi Heritage Circuit</span>
+            </div>
+          </div>
+
+          <!-- Leaflet Map Canvas Container -->
+          <div class="leaflet-map-canvas-container" id="hampi-photo-map"></div>
+
+          <!-- Floating Map Action Controls -->
+          <div class="floating-map-controls">
+            <button type="button" class="map-control-btn zoom-in" id="map-zoom-in" aria-label="Zoom in map" title="Zoom In">
+              +
+            </button>
+            <button type="button" class="map-control-btn zoom-out" id="map-zoom-out" aria-label="Zoom out map" title="Zoom Out">
+              −
+            </button>
+            <button type="button" class="map-control-btn reset-btn" id="map-fit-all" aria-label="Reset map view" title="Reset to View All">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="22" y1="12" x2="18" y2="12"></line>
+                <line x1="6" y1="12" x2="2" y2="12"></line>
+                <line x1="12" y1="6" x2="12" y2="2"></line>
+                <line x1="12" y1="22" x2="12" y2="18"></line>
+              </svg>
+              <span>Fit All</span>
+            </button>
+          </div>
+
+          <!-- Bottom Horizontal Destination Strip -->
+          <div class="map-bottom-strip-container">
+            <div class="strip-header-row">
+              <span class="strip-title">
+                Explore Destinations <em>(Click to fly &amp; view details)</em>
+              </span>
+              <span class="strip-scroll-hint">Scroll sideways ➔</span>
+            </div>
+
+            <div class="destination-chips-scroll-strip" id="map-chips-strip">
+              <!-- Dynamically populated via script.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         LANDMARK GUIDES (12 MONUMENTS IN DETAIL)
+         ==================================================================== -->
+    <section class="destinations-section" id="landmark-guides">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Landmark Guides</span>
+          <h2 class="section-title">
+            Explore the 12 Monuments <em>in Detail</em>
+          </h2>
+          <p class="section-subtitle">
+            Comprehensive guide to Hampi's timeless stone temples, royal enclosures, and sunset viewpoints.
+            Every journey is chauffeured by our courteous, experienced local drivers.
+          </p>
+        </div>
+
+        <!-- Filter Tabs by Experience -->
+        <div class="destinations-filter-tabs">
+          <button type="button" class="filter-tab-btn active" data-category="ALL">
+            All Highlights (12)
+          </button>
+          <button type="button" class="filter-tab-btn" data-category="HERITAGE &amp; TEMPLES">
+            Heritage &amp; Temples
+          </button>
+          <button type="button" class="filter-tab-btn" data-category="ROYAL HAMPI">
+            Royal Hampi
+          </button>
+          <button type="button" class="filter-tab-btn" data-category="VIEWS &amp; SUNSET">
+            Views &amp; Sunset
+          </button>
+          <button type="button" class="filter-tab-btn" data-category="FAMILY &amp; NEARBY">
+            Family &amp; Nearby Experiences
+          </button>
+        </div>
+
+        <!-- Attractions Grid -->
+        <div class="destinations-grid" id="attractions-grid">
+          <!-- Dynamically populated from data in script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FEATURED HAMPI EXPERIENCE (SPLIT STORY LAYOUT)
+         ==================================================================== -->
+    <section class="featured-story-section" id="about">
+      <div class="featured-story-container">
+        <div class="story-image-wrap">
+          <img
+            src="assets/images/matanga-hill.jpg"
+            alt="Panoramic sunset over boulders and temples in Hampi"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="story-text-content">
+          <span class="section-tag">Featured Experience</span>
+          <h2>
+            One Journey.
+            <br>
+            <em>A Thousand Stories.</em>
+          </h2>
+          <p>
+            From ancient temples and royal ruins to dramatic boulder landscapes
+            and Tungabhadra river views, explore the heart of Hampi comfortably
+            with Sri Manjunatha Travels.
+          </p>
+
+          <ul class="story-perks-list">
+            <li>
+              <span style="color: #f7dda2;">✓</span>
+              Punctual door-to-door pickups from Hosapete hotels and railway station
+            </li>
+            <li>
+              <span style="color: #f7dda2;">✓</span>
+              Chauffeurs who patiently wait while you soak in the monuments
+            </li>
+            <li>
+              <span style="color: #f7dda2;">✓</span>
+              Insider guidance on avoiding afternoon heat and photography spots
+            </li>
+            <li>
+              <span style="color: #f7dda2;">✓</span>
+              Clean, climate-controlled comfort between every heritage stop
+            </li>
+          </ul>
+
+          <a href="#booking" class="btn-primary">
+            <span>Plan Your Hampi Trip</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         HAMPI DAY TRIP ITINERARY (TIMELINE)
+         ==================================================================== -->
+    <section class="itinerary-section" id="itinerary">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Suggested Itinerary</span>
+          <h2 class="section-title">
+            Suggested Hampi <em>Day Trip</em>
+          </h2>
+          <p class="section-subtitle">
+            A curated timeline crafted by local drivers to help you experience the best
+            of Hampi comfortably. Timings are suggested and customizable to your schedule.
+          </p>
+        </div>
+
+        <div class="timeline-wrapper">
+          <!-- 08:00 AM -->
+          <div class="timeline-item">
+            <div class="timeline-dot">01</div>
+            <div class="timeline-card">
+              <span class="timeline-time-badge">08:00 AM • Suggested Start</span>
+              <h3>Start Journey</h3>
+              <p>
+                Prompt morning pickup from your hotel or Hosapete Railway Station. Enjoy a smooth 20-minute drive to Hampi as the town wakes up.
+              </p>
+            </div>
+          </div>
+
+          <!-- 09:00 AM -->
+          <div class="timeline-item">
+            <div class="timeline-dot">02</div>
+            <div class="timeline-card">
+              <span class="timeline-time-badge">09:00 AM</span>
+              <h3>Virupaksha Temple &amp; Hampi Bazaar</h3>
+              <p>
+                Visit the active 7th-century sacred temple, receive blessings, and stroll down the ancient colonnaded bazaar street.
+              </p>
+            </div>
+          </div>
+
+          <!-- 11:00 AM -->
+          <div class="timeline-item">
+            <div class="timeline-dot">03</div>
+            <div class="timeline-card">
+              <span class="timeline-time-badge">11:00 AM</span>
+              <h3>Vijaya Vittala Temple &amp; Stone Chariot</h3>
+              <p>
+                Marvel at the iconic Stone Chariot, the musical pillars hall, and the grand stone carved pavilions of the Vittala complex.
+              </p>
+            </div>
+          </div>
+
+          <!-- 01:00 PM -->
+          <div class="timeline-item">
+            <div class="timeline-dot">04</div>
+            <div class="timeline-card">
+              <span class="timeline-time-badge">01:00 PM</span>
+              <h3>Lunch Break</h3>
+              <p>
+                Relax in an air-conditioned local restaurant. Relish authentic Karnataka meals, South Indian thali, and refreshing tender coconut.
+              </p>
+            </div>
+          </div>
+
+          <!-- 02:00 PM -->
+          <div class="timeline-item">
+            <div class="timeline-dot">05</div>
+            <div class="timeline-card">
+              <span class="timeline-time-badge">02:00 PM</span>
+              <h3>Lotus Mahal &amp; Elephant Stables</h3>
+              <p>
+                Explore the royal Zenana Enclosure, the Indo-Islamic Lotus Mahal pavilion, and the monumental 11-domed Elephant Stables.
+              </p>
+            </div>
+          </div>
+
+          <!-- 04:30 PM -->
+          <div class="timeline-item">
+            <div class="timeline-dot">06</div>
+            <div class="timeline-card">
+              <span class="timeline-time-badge">04:30 PM</span>
+              <h3>Matanga Hill / Sunset Viewpoint</h3>
+              <p>
+                Witness the world-famous golden hour as the setting sun bathes Hampi's red granite boulders and Tungabhadra river in gold.
+              </p>
+            </div>
+          </div>
+
+          <!-- 06:30 PM -->
+          <div class="timeline-item">
+            <div class="timeline-dot">07</div>
+            <div class="timeline-card">
+              <span class="timeline-time-badge">06:30 PM</span>
+              <h3>Return Journey</h3>
+              <p>
+                Relax in our air-conditioned vehicle as we safely drive you back to your hotel or Hosapete Railway Station for your night train.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MAP & DIRECTIONS SECTION
+         ==================================================================== -->
+    <section class="map-section">
+      <div class="container">
+        <div class="map-card-box">
+          <div class="map-info-content">
+            <span class="section-tag">Central Hub</span>
+            <h3>Explore Hampi from Hosapete</h3>
+            <p>
+              Our office is conveniently based on 100 Bed Hospital Road in Hosapete,
+              just minutes from the railway station and bus terminus. We connect you directly to every heritage gate in Hampi.
+            </p>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&origin=100+Bed+Hospital+Road+Hosapete+Karnataka+583201&destination=Virupaksha+Temple+Hampi"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-primary"
+              >
+                <span>Get Directions on Google Maps ↗</span>
+              </a>
+
+              <a href="tel:919845799414" class="btn-secondary">
+                Call for Pickup
+              </a>
+            </div>
+          </div>
+
+          <div class="map-route-visual">
+            <div class="route-stop-point">
+              <span class="stop-icon">📍</span>
+              <div class="stop-details">
+                <strong>Sri Manjunatha Travels (Hosapete HQ)</strong>
+                <span>100 Bed Hospital Road, Hosapete, Karnataka 583201</span>
+              </div>
+            </div>
+
+            <div style="height: 20px; border-left: 2px dashed #8b5e3c; margin-left: 22px;"></div>
+
+            <div class="route-stop-point">
+              <span class="stop-icon">🏛️</span>
+              <div class="stop-details">
+                <strong>Hampi UNESCO Heritage Sites</strong>
+                <span>~12 km via Hampi Road (approx 25 mins drive)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         WHY CHOOSE US
+         ==================================================================== -->
+    <section class="why-us-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Why Travel With Us</span>
+          <h2 class="section-title">
+            Why Travel With <em>Sri Manjunatha Travels?</em>
+          </h2>
+          <p class="section-subtitle">
+            We treat every traveler like family. Count on us for safe, comfortable,
+            and punctual road journeys across Hosapete, Hampi, and Karnataka.
+          </p>
+        </div>
+
+        <div class="why-us-grid">
+          <div class="why-card">
+            <div class="why-icon-badge">✓</div>
+            <div class="why-card-text">
+              <h3>Reliable Service</h3>
+              <p>100% on-time pickups for early morning train arrivals, flights, and sunrise temple tours.</p>
+            </div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon-badge">✓</div>
+            <div class="why-card-text">
+              <h3>Comfortable Vehicles</h3>
+              <p>Spotless AC cabins, plush pushback seating, and ample luggage boot space on every ride.</p>
+            </div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon-badge">✓</div>
+            <div class="why-card-text">
+              <h3>Experienced Drivers</h3>
+              <p>Courteous, verified highway chauffeurs with extensive local driving experience.</p>
+            </div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon-badge">✓</div>
+            <div class="why-card-text">
+              <h3>Local Hampi Knowledge</h3>
+              <p>Insider route tips, guidance on best monument hours, and crowd-free photography viewpoints.</p>
+            </div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon-badge">✓</div>
+            <div class="why-card-text">
+              <h3>Transparent Pricing</h3>
+              <p>Honest, upfront quotes with zero hidden surcharges or surprise toll additions.</p>
+            </div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon-badge">✓</div>
+            <div class="why-card-text">
+              <h3>Easy Booking</h3>
+              <p>Quick WhatsApp reservations with immediate confirmation from our Hosapete operations team.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TESTIMONIALS (BRIGHT & TRUSTWORTHY)
+         ==================================================================== -->
+    <section class="testimonials-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Guest Experiences</span>
+          <h2 class="section-title">
+            What Travelers <em>Say About Us</em>
+          </h2>
+          <p class="section-subtitle">
+            Real reviews from families, couples and pilgrims who explored Hampi with our team.
+          </p>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="star-rating">★★★★★</div>
+            <p class="testimonial-quote">
+              "Our driver was waiting outside Hosapete Junction at 6 AM sharp with an impeccably clean Innova. He knew every temple route and guided us to avoid the afternoon crowd. Outstanding service!"
+            </p>
+            <div class="reviewer-meta">
+              <strong>Anand &amp; Priya Sharma</strong>
+              <span>Family Tour from Bangalore</span>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="star-rating">★★★★★</div>
+            <p class="testimonial-quote">
+              "We booked a 17-seater Tempo Traveller for our 3-day college friends reunion in Hampi. The pushback seats and AC were super comfortable even in the hot sun. Highly recommend Sri Manjunatha Travels!"
+            </p>
+            <div class="reviewer-meta">
+              <strong>Kavya M.</strong>
+              <span>Group Travel from Hyderabad</span>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="star-rating">★★★★★</div>
+            <p class="testimonial-quote">
+              "Very polite chauffeur who waited patiently at every monument while our parents took their time walking. The pricing was totally transparent. Will definitely book again on our next visit!"
+            </p>
+            <div class="reviewer-meta">
+              <strong>Suresh Gowda</strong>
+              <span>Pilgrim Visit from Mysore</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         BOOKING & CALL TO ACTION SECTION
+         ==================================================================== -->
+    <section class="booking-section" id="booking">
+      <div class="container">
+        <div class="booking-layout-wrapper">
+          <div class="booking-side-info" id="contact">
+            <span class="section-tag">Reservations</span>
+            <h2>
+              Ready to Explore
+              <br>
+              <em>Hampi with Us?</em>
+            </h2>
+            <p class="booking-lead-desc">
+              Book your comfortable journey with Sri Manjunatha Travels. Tell us your travel dates
+              and we will confirm your vehicle instantly via WhatsApp.
+            </p>
+
+            <div class="direct-contact-pillbox">
+              <div class="contact-row">
+                <div class="contact-icon-bubble">📞</div>
+                <div>
+                  <span class="contact-details-label">Direct Phone Call</span>
+                  <a href="tel:919845799414" class="contact-details-value">
+                    +91 98457 99414
+                  </a>
+                </div>
+              </div>
+
+              <div class="contact-row">
+                <div class="contact-icon-bubble">💬</div>
+                <div>
+                  <span class="contact-details-label">Instant WhatsApp</span>
+                  <button
+                    type="button"
+                    id="contact-whatsapp-btn"
+                    class="contact-details-value"
+                    style="text-align: left; background: none; border: none; padding: 0; cursor: pointer;"
+                  >
+                    +91 98457 99414
+                  </button>
+                </div>
+              </div>
+
+              <div class="contact-row">
+                <div class="contact-icon-bubble">📍</div>
+                <div>
+                  <span class="contact-details-label">Hosapete Office</span>
+                  <span style="font-size: 14px; color: #6f6a62; line-height: 1.5; display: block;">
+                    100 Bed Hospital Road, Hosapete, Karnataka 583201
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOOKING FORM -->
+          <div class="booking-form-card">
+            <h3>Book Your Journey</h3>
+            <form id="booking-form" class="booking-inputs-grid">
+              <div class="form-field">
+                <label for="form-name">Your Name *</label>
+                <input
+                  id="form-name"
+                  type="text"
+                  required
+                  placeholder="e.g. Ramesh Kumar"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="form-mobile">Mobile Number *</label>
+                <input
+                  id="form-mobile"
+                  type="tel"
+                  required
+                  placeholder="+91 98457 99414"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="form-from">From (Pickup) *</label>
+                <input
+                  id="form-from"
+                  type="text"
+                  required
+                  value="Hosapete"
+                  placeholder="Hosapete Railway Stn / Hotel"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="form-to">To (Destination) *</label>
+                <input
+                  id="form-to"
+                  type="text"
+                  required
+                  value="Hampi Sightseeing"
+                  placeholder="Hampi Ruins / Badami / Airport"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="form-date">Travel Date *</label>
+                <input
+                  id="form-date"
+                  type="date"
+                  required
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="form-time">Pickup Time *</label>
+                <input
+                  id="form-time"
+                  type="time"
+                  required
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="form-vehicle">Preferred Vehicle *</label>
+                <select id="form-vehicle">
+                  <option value="Innova">Toyota Innova Crysta (6-7 Seats)</option>
+                  <option value="Traveller">Force Tempo Traveller (12-20 Seats)</option>
+                  <option value="Sedan">Executive Sedan (4 Seats)</option>
+                  <option value="Bus">Luxury Touring Bus (30-50 Seats)</option>
+                  <option value="Car">Comfortable Car (Taxi)</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="form-passengers">Number of Passengers *</label>
+                <select id="form-passengers">
+                  <option value="1">1 Passenger</option>
+                  <option value="2">2 Passengers</option>
+                  <option value="3">3 Passengers</option>
+                  <option value="4">4 Passengers</option>
+                  <option value="5">5 Passengers</option>
+                  <option value="6">6 Passengers</option>
+                  <option value="7">7 Passengers</option>
+                  <option value="8">8 Passengers</option>
+                  <option value="9">9 Passengers</option>
+                  <option value="10">10 Passengers</option>
+                  <option value="11">11 Passengers</option>
+                  <option value="12">12 Passengers</option>
+                  <option value="13">13 Passengers</option>
+                  <option value="14">14 Passengers</option>
+                  <option value="15">15 Passengers</option>
+                  <option value="16">16 Passengers</option>
+                  <option value="17">17 Passengers</option>
+                  <option value="18">18 Passengers</option>
+                  <option value="19">19 Passengers</option>
+                  <option value="20">20 Passengers</option>
+                </select>
+              </div>
+
+              <p
+                id="booking-error-msg"
+                style="display: none; grid-column: 1 / -1; color: #c0392b; font-size: 13px; font-weight: 600;"
+              ></p>
+
+              <button type="submit" class="form-submit-cta">
+                <span>SEND BOOKING ON WHATSAPP →</span>
+              </button>
+
+              <p
+                style="grid-column: 1 / -1; font-size: 12px; color: #6f6a62; text-align: center; margin-top: 6px;"
+              >
+                Instant confirmation with our Hosapete dispatch team via WhatsApp.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FOOTER (WARM DARK & ELEGANT)
+         ==================================================================== -->
+    <footer class="site-footer">
+      <div class="footer-top-grid">
+        <div>
+          <h3 class="footer-brand-title">SRI MANJUNATHA</h3>
+          <span class="footer-brand-sub">TOURS &amp; TRAVELS</span>
+          <p class="footer-intro-text">
+            Your trusted travel partner for Hampi and beyond. Punctual, comfortable,
+            and courteous taxi and tour coach services based in Hosapete, Karnataka.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-heading">Quick Links</h4>
+          <ul class="footer-nav-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#vehicles">Our Fleet</a></li>
+            <li><a href="#services">Travel Services</a></li>
+            <li><a href="#destinations">Explore Hampi</a></li>
+            <li><a href="#itinerary">Day Trip Itinerary</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-heading">Explore Hampi</h4>
+          <ul class="footer-nav-list">
+            <li><a href="#destinations">Virupaksha Temple</a></li>
+            <li><a href="#destinations">Stone Chariot</a></li>
+            <li><a href="#destinations">Lotus Mahal</a></li>
+            <li><a href="#destinations">Elephant Stables</a></li>
+            <li><a href="#destinations">Tungabhadra Dam</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-heading">Contact &amp; Location</h4>
+          <address class="footer-contact-address">
+            100 Bed Hospital Road, 3rd Cross, Kottureshwar Nilaya, 2nd Cross Road, near Auto Stop, Hosapete, Karnataka 583201, India
+          </address>
+
+          <a href="tel:919845799414" class="footer-phone-direct">
+            📞 +91 98457 99414
+          </a>
+
+          <button
+            type="button"
+            id="footer-whatsapp-btn"
+            style="color: #c68b59; font-size: 13px; font-weight: 600; margin-top: 6px; cursor: pointer; background: none; border: none; padding: 0; text-align: left;"
+          >
+            💬 WhatsApp Us Directly
+          </button>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p>© 2026 Sri Manjunatha Tours &amp; Travels. All rights reserved.</p>
+        <p>Hosapete • Hampi • Karnataka Tourism Partner</p>
+      </div>
+    </footer>
+
+    <!-- ====================================================================
+         FLOATING ACTION BUTTONS (BOTTOM RIGHT)
+         ==================================================================== -->
+    <div class="floating-contact-stack">
+      <button
+        type="button"
+        class="floating-contact-btn whatsapp"
+        id="floating-whatsapp-btn"
+        aria-label="Chat on WhatsApp"
+      >
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.711 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+        </svg>
+        <span>WhatsApp</span>
+      </button>
+
+      <a href="tel:919845799414" class="floating-contact-btn call" aria-label="Call Sri Manjunatha Travels">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+        <span>Call</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Leaflet Map JS CDN -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
 </html>
