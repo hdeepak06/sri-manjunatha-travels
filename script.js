@@ -1,13 +1,15 @@
 /**
- * Sri Manjunatha Tours & Travels
- * Pure Vanilla JavaScript implementation
- * Exact match to original React application behavior and animations
+ * Sri Manjunatha Tours & Travels — Hosapete & Hampi
+ * Pure Vanilla JavaScript Implementation
+ * Mobile-First Interactive Features, Leaflet Map & WhatsApp Booking
  */
 
 (function () {
   "use strict";
 
+  // Verified Business Phone Number
   const CLEAN_PHONE = "919845799414";
+  const DEFAULT_ENQUIRY_MSG = "Hello Sri Manjunatha Travels, I would like to enquire about your travel services. Please share the available vehicles, routes, and pricing.";
 
   // WhatsApp Messaging Helper
   function sendWhatsAppMessage(message) {
@@ -15,14 +17,15 @@
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
-  // Native Smooth Scroll Helper with Header Offset
+  // Smooth Scroll Helper with Header Offset
   function goTo(id) {
     const el = document.getElementById(id);
     if (!el) return;
 
-    const headerOffset = 70;
+    const header = document.getElementById("site-navbar");
+    const headerHeight = header ? header.offsetHeight : 70;
     const elementPosition = el.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 10;
 
     window.scrollTo({
       top: offsetPosition,
@@ -31,7 +34,7 @@
   }
 
   // ==========================================================================
-  // 2. DATA: 12 HAMPI ATTRACTIONS
+  // 1. DATA: 12 VERIFIED HAMPI LANDMARKS & EXPERIENCES
   // ==========================================================================
   const HAMPI_PLACES = [
     {
@@ -43,13 +46,13 @@
       subCategory: "Active 7th-Century Shiva Shrine",
       lat: 15.3353,
       lng: 76.4600,
-      image: "assets/images/virupaksha-temple.jpg",
+      image: "assets/images/virupaksha-temple.webp",
+      fallbackImage: "assets/images/virupaksha-temple.jpg",
       description:
-        "Active since the 7th century on the Tungabhadra banks. Famous for its towering 50-meter entrance gopuram and sacred atmosphere.",
+        "Active since the 7th century on the Tungabhadra banks. Famous for its towering 50-meter eastern gopuram and sacred river steps.",
       detailedDesc:
         "The living sacred heart of Hampi, renowned for its towering 50-metre eastern gopuram, daily rituals, and sacred steps to the Tungabhadra river.",
-      distance: "~12 km from Hosapete Office (approx 25 mins)",
-      approxDistance: "~12 km from Hosapete HQ"
+      distance: "~12 km from Hosapete HQ (approx 20 mins)"
     },
     {
       id: "vijaya-vittala",
@@ -60,13 +63,13 @@
       subCategory: "Architectural Masterpiece",
       lat: 15.3387,
       lng: 76.4789,
-      image: "assets/images/vittala-temple.jpg",
+      image: "assets/images/vittala-temple.webp",
+      fallbackImage: "assets/images/vittala-temple.jpg",
       description:
-        "The pinnacle of Vijayanagara craftsmanship, famous for its world-renowned musical pillars, sculpted halls, and stone artistry.",
+        "The pinnacle of Vijayanagara craftsmanship, celebrated for 56 musical granite pillars, ornate mandapas, and stone artistry.",
       detailedDesc:
         "Hampi's architectural pinnacle, celebrated worldwide for its 56 carved musical granite pillars (Sa-Re-Ga-Ma pillars) and ornate mandapa halls.",
-      distance: "~15 km from Hosapete Office (approx 35 mins)",
-      approxDistance: "~15 km from Hosapete HQ"
+      distance: "~15 km from Hosapete HQ (approx 30 mins)"
     },
     {
       id: "stone-chariot",
@@ -77,13 +80,13 @@
       subCategory: "Iconic Garuda Shrine",
       lat: 15.3389,
       lng: 76.4796,
-      image: "assets/images/stone-chariot.jpg",
+      image: "assets/images/stone-chariot.webp",
+      fallbackImage: "assets/images/stone-chariot.jpg",
       description:
-        "The globally iconic shrine dedicated to Garuda inside the Vittala complex, featured on Indian currency notes.",
+        "Globally iconic monolithic shrine sculpted like an ornate ceremonial chariot inside the Vittala complex, featured on India's ₹50 note.",
       detailedDesc:
         "The world-famous monolithic shrine sculpted like an ornate ceremonial chariot, immortalized as a national symbol on the Indian ₹50 currency note.",
-      distance: "~15 km from Hosapete Office (approx 35 mins)",
-      approxDistance: "~15 km from Hosapete HQ"
+      distance: "~15 km from Hosapete HQ (approx 30 mins)"
     },
     {
       id: "ugra-narasimha",
@@ -94,13 +97,13 @@
       subCategory: "Colossal Monolithic Statue",
       lat: 15.3283,
       lng: 76.4578,
-      image: "assets/images/ugra-narasimha.jpg",
+      image: "assets/images/ugra-narasimha.webp",
+      fallbackImage: "assets/images/ugra-narasimha.jpg",
       description:
         "Largest monolithic sculpture in Hampi (6.7 meters tall), carved in 1528 AD, depicting Lord Narasimha seated under the serpent Adisesha.",
       detailedDesc:
         "A 6.7-metre tall monolithic sculpture of Lord Narasimha seated in calm yogic posture beneath the protective seven hoods of cosmic serpent Adishesha.",
-      distance: "~12 km from Hosapete Office (approx 25 mins)",
-      approxDistance: "~11.5 km from Hosapete HQ"
+      distance: "~11.5 km from Hosapete HQ (approx 20 mins)"
     },
     {
       id: "lotus-mahal",
@@ -111,13 +114,13 @@
       subCategory: "Indo-Islamic Summer Palace",
       lat: 15.3204,
       lng: 76.4705,
-      image: "assets/images/lotus-mahal.jpg",
+      image: "assets/images/lotus-mahal.webp",
+      fallbackImage: "assets/images/lotus-mahal.jpg",
       description:
-        "A graceful two-storey royal pavilion in the Zenana Enclosure showing an exquisite fusion of Indo-Islamic archways and stone carvings.",
+        "A graceful two-storey royal summer pavilion in the Zenana Enclosure showing an exquisite fusion of Indo-Islamic archways and stone carvings.",
       detailedDesc:
         "A serene two-storey royal summer pavilion showcasing delicate cusped arches, lotus-bud domes, and an ingenious natural air-cooling design.",
-      distance: "~13 km from Hosapete Office (approx 30 mins)",
-      approxDistance: "~13 km from Hosapete HQ"
+      distance: "~13 km from Hosapete HQ (approx 25 mins)"
     },
     {
       id: "elephant-stables",
@@ -128,13 +131,13 @@
       subCategory: "Ceremonial Royal Enclosure",
       lat: 15.3207,
       lng: 76.4735,
-      image: "assets/images/elephant-stables.jpg",
+      image: "assets/images/elephant-stables.webp",
+      fallbackImage: "assets/images/elephant-stables.jpg",
       description:
         "Monumental row of eleven interconnected domed chambers built to house the grand ceremonial royal elephants of Vijayanagara emperors.",
       detailedDesc:
         "Eleven grand interconnected domed chambers that once sheltered the ceremonial royal war and procession elephants of the Vijayanagara kings.",
-      distance: "~13 km from Hosapete Office (approx 30 mins)",
-      approxDistance: "~13.2 km from Hosapete HQ"
+      distance: "~13.5 km from Hosapete HQ (approx 25 mins)"
     },
     {
       id: "queens-bath",
@@ -145,13 +148,13 @@
       subCategory: "Royal Aquatic Pavilion",
       lat: 15.3134,
       lng: 76.4716,
-      image: "assets/images/queens-bath.jpg",
+      image: "assets/images/queens-bath.webp",
+      fallbackImage: "assets/images/queens-bath.jpg",
       description:
         "Elaborate royal bath with ornate arched corridors, overhanging balconies, and a central pool fed by ancient aqueducts.",
       detailedDesc:
         "An exquisite royal aquatic pavilion featuring stepped stone basins, ornate overhanging balconies, and Indo-Islamic vaulted arches.",
-      distance: "~11 km from Hosapete Office (approx 25 mins)",
-      approxDistance: "~12 km from Hosapete HQ"
+      distance: "~12 km from Hosapete HQ (approx 22 mins)"
     },
     {
       id: "matanga-hill",
@@ -162,13 +165,13 @@
       subCategory: "Supreme Sunrise & Sunset Vantage",
       lat: 15.3314,
       lng: 76.4683,
-      image: "assets/images/matanga-hill.jpg",
+      image: "assets/images/matanga-hill.webp",
+      fallbackImage: "assets/images/matanga-hill.jpg",
       description:
         "Highest vantage point in central Hampi offering spectacular 360-degree panoramic golden sunrise and sunset views over boulders and ruins.",
       detailedDesc:
         "The highest geographic point in central Hampi, offering unforgettable 360° panoramas over ancient ruins, banana plantations, and boulder valleys.",
-      distance: "~13 km from Hosapete Office (approx 30 mins)",
-      approxDistance: "~13 km from Hosapete HQ"
+      distance: "~13 km from Hosapete HQ (approx 25 mins)"
     },
     {
       id: "hemakuta-hill",
@@ -179,13 +182,13 @@
       subCategory: "Pre-Vijayanagara Shrines & Sunset",
       lat: 15.3328,
       lng: 76.4590,
-      image: "assets/images/hemakuta-hill.jpg",
+      image: "assets/images/hemakuta-hill.webp",
+      fallbackImage: "assets/images/hemakuta-hill.jpg",
       description:
         "A gently sloping granite expanse dotted with pre-Vijayanagara triple-chambered shrines, celebrated for golden sunset vistas.",
       detailedDesc:
         "A gently sloping granite expanse dotted with ancient stone temples, revered as the golden hill where Lord Shiva did penance before marrying Pampa.",
-      distance: "~12 km from Hosapete Office (approx 25 mins)",
-      approxDistance: "~12 km from Hosapete HQ"
+      distance: "~12 km from Hosapete HQ (approx 20 mins)"
     },
     {
       id: "anjanadri-hill",
@@ -196,30 +199,30 @@
       subCategory: "Birthplace of Lord Hanuman",
       lat: 15.3533,
       lng: 76.4708,
-      image: "assets/images/anjanadri-hill.jpg",
+      image: "assets/images/anjanadri-hill.webp",
+      fallbackImage: "assets/images/anjanadri-hill.jpg",
       description:
         "Revered across the Tungabhadra river as Kishkindha (birthplace of Lord Hanuman). Reached by climbing 575 scenic stone steps.",
       detailedDesc:
         "Located in mythological Kishkindha across the Tungabhadra river, reachable by 575 stone steps offering sweeping valley vistas and sunset serenity.",
-      distance: "~22 km from Hosapete Office (approx 45 mins)",
-      approxDistance: "~22 km from Hosapete HQ"
+      distance: "~22 km from Hosapete HQ (approx 40 mins)"
     },
     {
       id: "hampi-bazaar",
       name: "Hampi Bazaar",
       shortName: "Hampi Bazaar",
       mapCategory: "Heritage & Temples",
-      guideCategory: "VIEWS & SUNSET",
+      guideCategory: "HERITAGE & TEMPLES",
       subCategory: "Ancient Market Street",
       lat: 15.3346,
       lng: 76.4642,
-      image: "assets/images/hampi-bazaar.jpg",
+      image: "assets/images/hampi-bazaar.webp",
+      fallbackImage: "assets/images/hampi-bazaar.jpg",
       description:
-        "Kilometer-long ancient market street flanked by stone pavilions leading to Virupaksha and ancient trading markets.",
+        "Kilometer-long ancient market street flanked by stone colonnaded pavilions leading directly to Virupaksha Temple.",
       detailedDesc:
         "A kilometre-long colonnaded stone promenade facing Virupaksha Temple, where global merchants traded pearls, silks, and diamonds during the Vijayanagara Empire.",
-      distance: "~12.5 km from Hosapete Office (approx 25 mins)",
-      approxDistance: "~12.5 km from Hosapete HQ"
+      distance: "~12.5 km from Hosapete HQ (approx 22 mins)"
     },
     {
       id: "tungabhadra-dam",
@@ -230,13 +233,13 @@
       subCategory: "Scenic Reservoir & Japanese Gardens",
       lat: 15.2608,
       lng: 76.3400,
-      image: "assets/images/tungabhadra-dam.jpg",
+      image: "assets/images/tungabhadra-dam.webp",
+      fallbackImage: "assets/images/tungabhadra-dam.jpg",
       description:
         "Vast engineering marvel and reservoir near Hosapete featuring landscaped Japanese gardens, musical fountains, and panoramic dam views.",
       detailedDesc:
         "A grand reservoir near Hosapete featuring expansive water bodies, landscaped Japanese gardens, deer parks, musical fountains, and sunset hilltops.",
-      distance: "~6 km from Hosapete Office (approx 15 mins)",
-      approxDistance: "~6 km from Hosapete HQ"
+      distance: "~6 km from Hosapete HQ (approx 15 mins)"
     }
   ];
 
@@ -264,8 +267,14 @@
     [15.3533, 76.4708]  // Anjanadri Hill
   ];
 
+  function buildDirectionsUrl(destinationName) {
+    const origin = encodeURIComponent("100 Bed Hospital Road, Hosapete, Karnataka 583201");
+    const dest = encodeURIComponent(`${destinationName}, Hampi, Karnataka`);
+    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}`;
+  }
+
   // ==========================================================================
-  // 3. NAVBAR SCROLL & MOBILE DRAWER
+  // 2. NAVBAR SCROLL & MOBILE DRAWER BEHAVIOR
   // ==========================================================================
   const navbar = document.getElementById("site-navbar");
   const hamburgerBtn = document.getElementById("hamburger-btn");
@@ -275,10 +284,10 @@
   let scrollTicking = false;
 
   function updateNavbarOnScroll() {
-    const shouldScroll = window.scrollY > 30;
+    const shouldScroll = window.scrollY > 25;
     if (shouldScroll !== isScrolled) {
       isScrolled = shouldScroll;
-      navbar.classList.toggle("scrolled", isScrolled);
+      if (navbar) navbar.classList.toggle("scrolled", isScrolled);
     }
     scrollTicking = false;
   }
@@ -292,30 +301,67 @@
 
   if (hamburgerBtn && mobileDrawer) {
     hamburgerBtn.addEventListener("click", function () {
-      hamburgerBtn.classList.toggle("open");
-      mobileDrawer.classList.toggle("open");
+      const isOpen = hamburgerBtn.classList.toggle("open");
+      mobileDrawer.classList.toggle("open", isOpen);
+      hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      mobileDrawer.setAttribute("aria-hidden", isOpen ? "false" : "true");
+      document.body.style.overflow = isOpen ? "hidden" : "";
     });
 
-    const mobileLinks = mobileDrawer.querySelectorAll(".mobile-nav-link");
+    // Close mobile drawer when any link is tapped
+    const mobileLinks = mobileDrawer.querySelectorAll("a, button");
     mobileLinks.forEach(function (link) {
       link.addEventListener("click", function (e) {
+        if (link.id === "mobile-whatsapp-btn") return; // Handled separately
         hamburgerBtn.classList.remove("open");
         mobileDrawer.classList.remove("open");
+        hamburgerBtn.setAttribute("aria-expanded", "false");
+        mobileDrawer.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
 
-        const targetId = link.getAttribute("href").replace("#", "");
-        if (targetId) {
-          e.preventDefault();
-          goTo(targetId);
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          const targetId = href.substring(1);
+          if (targetId) {
+            e.preventDefault();
+            goTo(targetId);
+          }
         }
       });
     });
+
+    // Dedicated X close button inside mobile drawer
+    const drawerCloseBtn = document.getElementById("mobile-drawer-close-btn");
+    if (drawerCloseBtn) {
+      drawerCloseBtn.addEventListener("click", function () {
+        hamburgerBtn.classList.remove("open");
+        mobileDrawer.classList.remove("open");
+        hamburgerBtn.setAttribute("aria-expanded", "false");
+        mobileDrawer.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      });
+    }
   }
 
-  // Smooth scroll for all hash anchor links in desktop nav
+  // Mobile drawer quick WhatsApp button
+  const mobileWhatsAppBtn = document.getElementById("mobile-whatsapp-btn");
+  if (mobileWhatsAppBtn) {
+    mobileWhatsAppBtn.addEventListener("click", function () {
+      if (hamburgerBtn && mobileDrawer) {
+        hamburgerBtn.classList.remove("open");
+        mobileDrawer.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      sendWhatsAppMessage(DEFAULT_ENQUIRY_MSG);
+    });
+  }
+
+  // Desktop smooth anchor scroll
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener("click", function (e) {
-      const targetId = anchor.getAttribute("href").replace("#", "");
-      if (targetId) {
+      const href = anchor.getAttribute("href");
+      if (href && href.length > 1) {
+        const targetId = href.substring(1);
         const targetEl = document.getElementById(targetId);
         if (targetEl) {
           e.preventDefault();
@@ -325,24 +371,64 @@
     });
   });
 
-  // Mobile drawer WhatsApp button
-  const mobileWhatsAppBtn = document.getElementById("mobile-whatsapp-btn");
-  if (mobileWhatsAppBtn) {
-    mobileWhatsAppBtn.addEventListener("click", function () {
-      if (hamburgerBtn && mobileDrawer) {
-        hamburgerBtn.classList.remove("open");
-        mobileDrawer.classList.remove("open");
-      }
-      sendWhatsAppMessage("Hello Sri Manjunatha Travels, I would like to enquire about travel.");
-    });
+  // ==========================================================================
+  // 3. BOOKING FORM ELEMENTS & HELPERS
+  // ==========================================================================
+  const bookingForm = document.getElementById("booking-form");
+  const formName = document.getElementById("form-name");
+  const formMobile = document.getElementById("form-mobile");
+  const formFrom = document.getElementById("form-from");
+  const formToInput = document.getElementById("form-to");
+  const formDate = document.getElementById("form-date");
+  const formTime = document.getElementById("form-time");
+  const formVehicleSelect = document.getElementById("form-vehicle");
+  const formPassengers = document.getElementById("form-passengers");
+  const formNotes = document.getElementById("form-notes");
+  const bookingErrorMsg = document.getElementById("booking-error-msg");
+  const bookingSuccessMsg = document.getElementById("booking-success-msg");
+
+  // Set today as minimum selectable date
+  if (formDate) {
+    const today = new Date().toISOString().split("T")[0];
+    formDate.setAttribute("min", today);
   }
 
-  // ==========================================================================
-  // 4. FLEET SELECTION (Connecting fleet cards to booking form)
-  // ==========================================================================
-  const formVehicleSelect = document.getElementById("form-vehicle");
-  const formToInput = document.getElementById("form-to");
+  function showError(msg) {
+    if (bookingErrorMsg) {
+      bookingErrorMsg.textContent = msg;
+      bookingErrorMsg.style.display = "block";
+    }
+    if (bookingSuccessMsg) {
+      bookingSuccessMsg.style.display = "none";
+    }
+  }
 
+  function hideError() {
+    if (bookingErrorMsg) {
+      bookingErrorMsg.style.display = "none";
+    }
+  }
+
+  function showSuccess(msg) {
+    if (bookingSuccessMsg) {
+      if (msg) bookingSuccessMsg.textContent = msg;
+      bookingSuccessMsg.style.display = "block";
+    }
+    if (bookingErrorMsg) {
+      bookingErrorMsg.style.display = "none";
+    }
+  }
+
+  // Pre-fill booking destination
+  window.bookRideForPlace = function (placeName) {
+    if (formToInput) {
+      formToInput.value = `${placeName} (Hampi Tour)`;
+    }
+    goTo("booking");
+    if (formName) formName.focus();
+  };
+
+  // Fleet Card selection
   document.querySelectorAll(".select-vehicle-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       const vehicle = btn.getAttribute("data-vehicle");
@@ -350,22 +436,101 @@
         formVehicleSelect.value = vehicle;
       }
       goTo("booking");
+      if (formName) formName.focus();
     });
   });
 
-  // Global booking function matching React handleBookPlace
-  window.bookRideForPlace = function (placeName) {
-    if (formToInput) {
-      formToInput.value = placeName;
-    }
-    if (formVehicleSelect) {
-      formVehicleSelect.value = "Innova";
-    }
-    goTo("booking");
-  };
+  // Service Card enquiry buttons
+  document.querySelectorAll(".btn-service-enquire").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const serviceName = btn.getAttribute("data-service");
+      if (formToInput && serviceName) {
+        formToInput.value = serviceName;
+      }
+      goTo("booking");
+      if (formName) formName.focus();
+    });
+  });
+
+  // Form Submit Handler
+  if (bookingForm) {
+    bookingForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const nameVal = formName ? formName.value.trim() : "";
+      const mobileVal = formMobile ? formMobile.value.trim() : "";
+      const fromVal = formFrom ? formFrom.value.trim() : "";
+      const toVal = formToInput ? formToInput.value.trim() : "";
+      const dateVal = formDate ? formDate.value : "";
+      const timeVal = formTime ? formTime.value : "";
+      const vehicleVal = formVehicleSelect ? formVehicleSelect.value : "Innova";
+      const passVal = formPassengers ? formPassengers.value : "2";
+      const notesVal = formNotes ? formNotes.value.trim() : "";
+
+      // Validation
+      if (!nameVal) {
+        showError("Please enter your name.");
+        if (formName) formName.focus();
+        return;
+      }
+
+      if (!mobileVal || mobileVal.replace(/\D/g, "").length < 10) {
+        showError("Please enter a valid 10-digit mobile number for WhatsApp confirmation.");
+        if (formMobile) formMobile.focus();
+        return;
+      }
+
+      if (!fromVal) {
+        showError("Please enter your pickup location (e.g. Hosapete Junction / Hotel).");
+        if (formFrom) formFrom.focus();
+        return;
+      }
+
+      if (!toVal) {
+        showError("Please enter your destination or tour package.");
+        if (formToInput) formToInput.focus();
+        return;
+      }
+
+      if (!dateVal) {
+        showError("Please choose your travel date.");
+        if (formDate) formDate.focus();
+        return;
+      }
+
+      if (!timeVal) {
+        showError("Please specify your desired pickup time.");
+        if (formTime) formTime.focus();
+        return;
+      }
+
+      hideError();
+
+      // Format clean, professional WhatsApp message
+      const message = `Hello Sri Manjunatha Travels,
+
+I would like to enquire about your travel services.
+
+*Booking Enquiry Details:*
+• Name: ${nameVal}
+• Contact: ${mobileVal}
+• Pickup: ${fromVal}
+• Destination: ${toVal}
+• Date: ${dateVal}
+• Time: ${timeVal}
+• Vehicle: ${vehicleVal}
+• Passengers: ${passVal}${notesVal ? `\n• Special Notes: ${notesVal}` : ""}
+
+Please confirm vehicle availability and share pricing.`;
+
+      showSuccess("✓ Opening WhatsApp with your prefilled booking enquiry! Our Hosapete operations team will confirm your vehicle instantly.");
+
+      sendWhatsAppMessage(message);
+    });
+  }
 
   // ==========================================================================
-  // 5. LANDMARK GUIDES: DYNAMIC RENDERING & FILTERING
+  // 4. LANDMARK GUIDES: DYNAMIC RENDERING & FILTERING
   // ==========================================================================
   const attractionsGrid = document.getElementById("attractions-grid");
   const guideFilterBtns = document.querySelectorAll(".filter-tab-btn");
@@ -382,12 +547,12 @@
       const card = document.createElement("div");
       card.className = "destination-card";
 
-      const dirUrl = `https://www.google.com/maps/dir/?api=1&origin=100+Bed+Hospital+Road+Hosapete+Karnataka+583201&destination=${encodeURIComponent(place.name + " Hampi")}`;
+      const dirUrl = buildDirectionsUrl(place.name);
 
       card.innerHTML = `
         <div class="destination-thumb">
           <span class="destination-cat-chip">${place.guideCategory}</span>
-          <img src="${place.image}" alt="${place.name}" loading="lazy">
+          <img src="${place.image}" alt="${place.name} in Hampi" loading="lazy" onerror="this.onerror=null; this.src='${place.fallbackImage}'">
         </div>
         <div class="destination-info">
           <h3>${place.name}</h3>
@@ -398,9 +563,9 @@
           </div>
           <div class="destination-actions">
             <a href="${dirUrl}" target="_blank" rel="noopener noreferrer" class="directions-link-btn">
-              <span>Get Directions on Map ↗</span>
+              <span>Directions on Map ↗</span>
             </a>
-            <button type="button" class="btn-secondary book-place-btn" style="padding: 8px 16px; font-size: 11px;">
+            <button type="button" class="btn-gold book-place-btn" data-place="${place.name}">
               Book Ride
             </button>
           </div>
@@ -428,7 +593,7 @@
   renderAttractionCards("ALL");
 
   // ==========================================================================
-  // 6. INTERACTIVE LEAFLET PHOTO MAP (Exact match to HampiPhotoMap.tsx)
+  // 5. INTERACTIVE LEAFLET PHOTO MAP
   // ==========================================================================
   const mapElement = document.getElementById("hampi-photo-map");
   const mapChipsStrip = document.getElementById("map-chips-strip");
@@ -439,40 +604,31 @@
   let selectedPlaceId = "virupaksha";
   let activeMapCategory = "ALL";
 
-  function buildDirectionsUrl(destinationName) {
-    const origin = encodeURIComponent("100 Bed Hospital Road, Hosapete, Karnataka 583201");
-    const dest = encodeURIComponent(`${destinationName}, Hampi, Karnataka`);
-    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}`;
-  }
-
   function renderBottomChips() {
     if (!mapChipsStrip) return;
     mapChipsStrip.innerHTML = "";
 
-    const displayedPlaces = activeMapCategory === "ALL"
+    const filtered = activeMapCategory === "ALL"
       ? HAMPI_PLACES
       : HAMPI_PLACES.filter(function (p) { return p.mapCategory === activeMapCategory; });
 
-    displayedPlaces.forEach(function (place) {
-      const isSelected = selectedPlaceId === place.id;
-      const chip = document.createElement("button");
-      chip.type = "button";
-      chip.className = `destination-chip-card ${isSelected ? "selected" : ""}`;
-      chip.setAttribute("data-place-id", place.id);
+    filtered.forEach(function (place) {
+      const chip = document.createElement("div");
+      chip.className = `destination-chip-card ${place.id === selectedPlaceId ? "selected" : ""}`;
+      chip.setAttribute("data-id", place.id);
 
       chip.innerHTML = `
         <div class="chip-thumb-wrap">
-          <img src="${place.image}" alt="${place.name}" loading="lazy">
+          <img src="${place.image}" alt="${place.name}" loading="lazy" onerror="this.onerror=null; this.src='${place.fallbackImage}'">
         </div>
         <div class="chip-meta">
-          <strong class="chip-name">${place.name}</strong>
-          <span class="chip-cat">${place.subCategory}</span>
+          <span class="chip-name">${place.shortName}</span>
+          <span class="chip-cat">${place.mapCategory}</span>
         </div>
-        ${isSelected ? '<span class="chip-active-dot">●</span>' : ""}
       `;
 
       chip.addEventListener("click", function () {
-        flyToPlace(place);
+        flyToPlace(place.id);
       });
 
       mapChipsStrip.appendChild(chip);
@@ -481,186 +637,129 @@
 
   function updateActiveChip() {
     if (!mapChipsStrip) return;
-    const chips = mapChipsStrip.querySelectorAll(".destination-chip-card");
-    chips.forEach(function (chip) {
-      const pid = chip.getAttribute("data-place-id");
-      if (pid === selectedPlaceId) {
-        chip.classList.add("selected");
-        if (!chip.querySelector(".chip-active-dot")) {
-          const dot = document.createElement("span");
-          dot.className = "chip-active-dot";
-          dot.textContent = "●";
-          chip.appendChild(dot);
-        }
-        chip.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      } else {
-        chip.classList.remove("selected");
-        const dot = chip.querySelector(".chip-active-dot");
-        if (dot) dot.remove();
-      }
+    mapChipsStrip.querySelectorAll(".destination-chip-card").forEach(function (c) {
+      const id = c.getAttribute("data-id");
+      c.classList.toggle("selected", id === selectedPlaceId);
     });
   }
 
-  function flyToPlace(place) {
-    selectedPlaceId = place.id;
+  function flyToPlace(id) {
+    selectedPlaceId = id;
     updateActiveChip();
 
-    if (!mapInstance) return;
+    const place = HAMPI_PLACES.find(function (p) { return p.id === id; });
+    const marker = mapMarkers.get(id);
 
-    mapInstance.flyTo([place.lat, place.lng], 15.5, {
-      duration: 1.2,
-      easeLinearity: 0.25
-    });
+    if (place && mapInstance) {
+      mapInstance.flyTo([place.lat, place.lng], 15, {
+        duration: 1.2,
+        easeLinearity: 0.25
+      });
 
-    const marker = mapMarkers.get(place.id);
-    if (marker) {
-      setTimeout(function () {
+      if (marker) {
         marker.openPopup();
-      }, 400);
+      }
     }
   }
 
   function resetMapView() {
     if (!mapInstance) return;
-    selectedPlaceId = null;
-    updateActiveChip();
-
-    const bounds = L.latLngBounds([
-      [STARTING_POINT.lat, STARTING_POINT.lng],
-      ...HAMPI_PLACES.map(function (p) { return [p.lat, p.lng]; })
-    ]);
-
-    mapInstance.fitBounds(bounds, {
-      padding: [45, 45],
-      maxZoom: 14
-    });
+    const bounds = L.latLngBounds(HAMPI_PLACES.map(function (p) { return [p.lat, p.lng]; }));
+    bounds.extend([STARTING_POINT.lat, STARTING_POINT.lng]);
+    mapInstance.fitBounds(bounds, { padding: [50, 50] });
   }
 
   function initMap() {
     if (!mapElement || typeof L === "undefined") return;
 
-    mapInstance = L.map(mapElement, {
-      center: [15.312, 76.435],
-      zoom: 12.5,
+    // Center map between Hosapete and central Hampi
+    mapInstance = L.map("hampi-photo-map", {
+      center: [15.3353, 76.4600],
+      zoom: 12,
       zoomControl: false,
       scrollWheelZoom: false
     });
 
-    // Free OpenStreetMap Tiles
+    // Clean OpenStreetMap tiles
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors',
-      maxZoom: 19,
-      minZoom: 10
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 18
     }).addTo(mapInstance);
 
-    // Subtle dashed scenic itinerary route line
-    const routeLine = L.polyline(ITINERARY_ROUTE_COORDS, {
-      color: "#C68B59",
-      weight: 3.5,
-      opacity: 0.85,
-      dashArray: "7, 10",
-      lineCap: "round",
-      lineJoin: "round"
-    });
-    routeLine.addTo(mapInstance);
-
-    // 1. Starting Point Marker (Hosapete HQ)
-    const startHtml = `
-      <div class="hampi-start-marker-wrap">
+    // Starting Point HQ Marker
+    const startIcon = L.divIcon({
+      className: "custom-leaflet-div-icon",
+      html: `
         <div class="hampi-start-badge">
           <div class="hampi-start-icon-circle">🚗</div>
           <div class="hampi-start-meta">
             <span class="hampi-start-title">Sri Manjunatha Travels</span>
-            <span class="hampi-start-tagline">Start Your Hampi Journey</span>
+            <span class="hampi-start-tagline">Central Hosapete HQ</span>
           </div>
         </div>
-        <div class="hampi-start-pin-tip"></div>
-      </div>
-    `;
-
-    const startIcon = L.divIcon({
-      html: startHtml,
-      className: "hampi-start-div-icon",
-      iconSize: [210, 56],
-      iconAnchor: [105, 56],
-      popupAnchor: [0, -56]
+      `,
+      iconSize: [220, 36],
+      iconAnchor: [110, 18]
     });
 
-    const startPopupHtml = `
-      <div class="hampi-popup-card start-popup">
-        <div class="popup-header-brand">
-          <span class="popup-brand-badge">📍 Official Operating Hub</span>
-          <h4>Sri Manjunatha Tours & Travels</h4>
-        </div>
-        <div class="popup-body">
-          <p class="popup-desc">
-            Conveniently situated on 100 Bed Hospital Road, Hosapete. Our fleet starts here to pick you up at hotels, railway stations, or airport connections.
-          </p>
-          <div class="popup-info-line">
-            <span>📍 100 Bed Hospital Road, Hosapete, Karnataka 583201</span>
-          </div>
-          <div class="popup-actions-row">
-            <a href="tel:919845799414" class="popup-btn-primary">
-              📞 Call +91 98457 99414
-            </a>
-          </div>
-        </div>
+    const startMarker = L.marker([STARTING_POINT.lat, STARTING_POINT.lng], { icon: startIcon }).addTo(mapInstance);
+    startMarker.bindPopup(`
+      <div style="padding: 12px 14px; font-family: sans-serif;">
+        <strong style="color: #8b5e3c; font-size: 13px; display: block; margin-bottom: 4px;">Sri Manjunatha Travels HQ</strong>
+        <p style="font-size: 12px; color: #444; margin: 0 0 8px 0;">100 Bed Hospital Road, Hosapete, Karnataka 583201</p>
+        <a href="tel:919845799414" style="color: #d4a754; font-weight: bold; font-size: 12px;">Call: +91 98457 99414</a>
       </div>
-    `;
+    `);
 
-    const startMarker = L.marker([STARTING_POINT.lat, STARTING_POINT.lng], {
-      icon: startIcon,
-      zIndexOffset: 1000
-    }).bindPopup(startPopupHtml, {
-      maxWidth: 290,
-      className: "hampi-leaflet-popup"
-    });
+    // Dashed Route Circuit Polyline
+    L.polyline(ITINERARY_ROUTE_COORDS, {
+      color: "#c68b59",
+      weight: 3,
+      dashArray: "6, 8",
+      opacity: 0.75
+    }).addTo(mapInstance);
 
-    startMarker.addTo(mapInstance);
-
-    // 2. 12 Attraction Markers
+    // Place Markers
     HAMPI_PLACES.forEach(function (place) {
-      const markerHtml = `
-        <div class="hampi-photo-marker-wrap" data-id="${place.id}">
-          <div class="hampi-photo-card">
-            <div class="hampi-marker-thumb-box">
-              <img src="${place.image}" alt="${place.name}" loading="lazy">
+      const icon = L.divIcon({
+        className: "custom-leaflet-div-icon",
+        html: `
+          <div class="hampi-photo-marker-wrap">
+            <div class="hampi-photo-card">
+              <div class="hampi-marker-thumb-box">
+                <img src="${place.image}" alt="${place.name}" onerror="this.onerror=null; this.src='${place.fallbackImage}'">
+              </div>
+              <span class="hampi-marker-name">${place.shortName}</span>
             </div>
-            <span class="hampi-marker-name">${place.shortName}</span>
+            <div class="hampi-marker-pin-tip"></div>
           </div>
-          <div class="hampi-marker-pin-tip"></div>
-        </div>
-      `;
-
-      const photoIcon = L.divIcon({
-        html: markerHtml,
-        className: "hampi-photo-div-icon",
-        iconSize: [140, 46],
-        iconAnchor: [70, 46],
-        popupAnchor: [0, -48]
+        `,
+        iconSize: [140, 40],
+        iconAnchor: [70, 40]
       });
 
-      const directionsUrl = buildDirectionsUrl(place.name);
+      const marker = L.marker([place.lat, place.lng], { icon: icon }).addTo(mapInstance);
+
+      const dirUrl = buildDirectionsUrl(place.name);
 
       const popupHtml = `
         <div class="hampi-popup-card">
           <div class="popup-thumb-wrap">
-            <img src="${place.image}" alt="${place.name}" class="popup-cover-img">
+            <img src="${place.image}" alt="${place.name}" class="popup-cover-img" onerror="this.onerror=null; this.src='${place.fallbackImage}'">
             <span class="popup-category-pill">${place.mapCategory}</span>
           </div>
           <div class="popup-body">
-            <div class="popup-subtitle">${place.subCategory}</div>
             <h4 class="popup-title">${place.name}</h4>
             <p class="popup-desc">${place.detailedDesc}</p>
             <div class="popup-distance-badge">
-              <span>📍 ${place.approxDistance}</span>
+              <span>📍</span>
+              <span>${place.distance}</span>
             </div>
             <div class="popup-actions-row">
-              <a href="${directionsUrl}" target="_blank" rel="noopener noreferrer" class="popup-btn-primary">
-                Get Directions ↗
+              <a href="${dirUrl}" target="_blank" rel="noopener noreferrer" class="popup-btn-primary">
+                Directions ↗
               </a>
-              <button type="button" class="popup-btn-secondary" onclick="window.bookRideForPlace('${place.name.replace(/'/g, "\\'")}')">
+              <button type="button" class="popup-btn-secondary" onclick="window.bookRideForPlace('${place.name}')">
                 Book Ride
               </button>
             </div>
@@ -668,11 +767,10 @@
         </div>
       `;
 
-      const marker = L.marker([place.lat, place.lng], {
-        icon: photoIcon
-      }).bindPopup(popupHtml, {
-        maxWidth: 320,
-        className: "hampi-leaflet-popup"
+      marker.bindPopup(popupHtml, {
+        className: "hampi-leaflet-popup",
+        maxWidth: 300,
+        minWidth: 260
       });
 
       marker.on("click", function () {
@@ -680,25 +778,12 @@
         updateActiveChip();
       });
 
-      marker.addTo(mapInstance);
       mapMarkers.set(place.id, marker);
     });
 
-    // Fit initial bounds
-    const initialBounds = L.latLngBounds([
-      [STARTING_POINT.lat, STARTING_POINT.lng],
-      ...HAMPI_PLACES.map(function (p) { return [p.lat, p.lng]; })
-    ]);
-
-    mapInstance.fitBounds(initialBounds, {
-      padding: [40, 40],
-      maxZoom: 13
-    });
-
-    // Render chips
     renderBottomChips();
 
-    // Map controls
+    // Map Controls
     const zoomInBtn = document.getElementById("map-zoom-in");
     const zoomOutBtn = document.getElementById("map-zoom-out");
     const fitAllBtn = document.getElementById("map-fit-all");
@@ -741,104 +826,20 @@
   }
 
   // ==========================================================================
-  // 7. BOOKING FORM (Exact match to BookingForm in App.tsx)
-  // ==========================================================================
-  const bookingForm = document.getElementById("booking-form");
-  const formName = document.getElementById("form-name");
-  const formMobile = document.getElementById("form-mobile");
-  const formFrom = document.getElementById("form-from");
-  const formDate = document.getElementById("form-date");
-  const formTime = document.getElementById("form-time");
-  const formPassengers = document.getElementById("form-passengers");
-  const bookingErrorMsg = document.getElementById("booking-error-msg");
-
-  if (bookingForm) {
-    bookingForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      if (!formName.value.trim()) {
-        showError("Please enter your name.");
-        return;
-      }
-      if (!formMobile.value.trim()) {
-        showError("Please enter your mobile number.");
-        return;
-      }
-      if (!formFrom.value.trim()) {
-        showError("Please enter the pickup location.");
-        return;
-      }
-      if (!formToInput.value.trim()) {
-        showError("Please enter your destination.");
-        return;
-      }
-      if (!formDate.value) {
-        showError("Please select your travel date.");
-        return;
-      }
-      if (!formTime.value) {
-        showError("Please choose your pickup time.");
-        return;
-      }
-
-      hideError();
-
-      const message = `Hello Sri Manjunatha Travels,
-
-I want to book a journey.
-
-Name: ${formName.value.trim()}
-Mobile: ${formMobile.value.trim()}
-From: ${formFrom.value.trim()}
-To: ${formToInput.value.trim()}
-Date: ${formDate.value}
-Time: ${formTime.value}
-Vehicle: ${formVehicleSelect ? formVehicleSelect.value : "Innova"}
-Passengers: ${formPassengers ? formPassengers.value : "1"}`;
-
-      sendWhatsAppMessage(message);
-    });
-  }
-
-  function showError(msg) {
-    if (bookingErrorMsg) {
-      bookingErrorMsg.textContent = msg;
-      bookingErrorMsg.style.display = "block";
-    }
-  }
-
-  function hideError() {
-    if (bookingErrorMsg) {
-      bookingErrorMsg.style.display = "none";
-    }
-  }
-
-  if (formDate) {
-    const today = new Date().toISOString().split("T")[0];
-    formDate.setAttribute("min", today);
-  }
-
-  // ==========================================================================
-  // 8. DIRECT WHATSAPP BUTTONS
+  // 6. FLOATING & STICKY BUTTON ACTIONS
   // ==========================================================================
   const floatingWhatsAppBtn = document.getElementById("floating-whatsapp-btn");
   if (floatingWhatsAppBtn) {
     floatingWhatsAppBtn.addEventListener("click", function () {
-      sendWhatsAppMessage("Hello Sri Manjunatha Travels, I would like to enquire about vehicle booking.");
+      sendWhatsAppMessage("Hello Sri Manjunatha Travels, I would like to check vehicle availability for Hampi travel.");
     });
   }
 
-  const contactWhatsAppBtn = document.getElementById("contact-whatsapp-btn");
-  if (contactWhatsAppBtn) {
-    contactWhatsAppBtn.addEventListener("click", function () {
-      sendWhatsAppMessage("Hello Sri Manjunatha Travels, I would like to check vehicle availability.");
-    });
-  }
-
-  const footerWhatsAppBtn = document.getElementById("footer-whatsapp-btn");
-  if (footerWhatsAppBtn) {
-    footerWhatsAppBtn.addEventListener("click", function () {
-      sendWhatsAppMessage("Hello Sri Manjunatha Travels.");
+  const stickyWhatsAppBtn = document.getElementById("sticky-whatsapp-btn");
+  if (stickyWhatsAppBtn) {
+    stickyWhatsAppBtn.addEventListener("click", function () {
+      goTo("booking");
+      if (formName) formName.focus();
     });
   }
 
