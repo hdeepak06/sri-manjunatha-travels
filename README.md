@@ -14,6 +14,8 @@ Premium, mobile-first, pure HTML5, CSS3, and JavaScript travel and transport web
 - **Operating Hours:** Open 24 Hours / 7 Days a Week
 - **Rating:** 4.9 ★ based on 155+ verified traveler reviews (JD Verified Local Operator since 2014)
 - **Official Domain:** [srimanjunathatoursandtravels.com](https://srimanjunathatoursandtravels.com/)
+- **Live Vercel Production URL:** [https://sri-manjunatha-travels-du4f.vercel.app](https://sri-manjunatha-travels-du4f.vercel.app)
+- **Alternate Vercel URL:** [https://sri-manjunatha-travels-gc3e.vercel.app](https://sri-manjunatha-travels-gc3e.vercel.app)
 
 ---
 
